@@ -12,7 +12,7 @@
                 aria-describedby="titleHelp">
         </div>
         <div class="mb-3">
-            <textarea maxlength="3000" name="description" class="form-control" placeholder="Description here.." id="" cols="30"
+            <textarea maxlength="10000" name="description" class="form-control" placeholder="Description here.." id="" cols="30"
                 rows="10"></textarea>
         </div>
         <div class="mb-3">

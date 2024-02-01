@@ -28,6 +28,7 @@ class BookController extends Controller
             $imagePath = $request->file('book_cover')->store('uploads', 'public');
             $info['book_cover'] = $imagePath;
         }
+
         $newBook = Book::create($info);
         return redirect(route('books.view'))->with('success', "Book '$newBook->title' was created successfully!");
     }
@@ -52,13 +53,20 @@ class BookController extends Controller
             'book_cover' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
+        if ($request->hasFile('book_cover')) {
+            if ($book->book_cover && file_exists(storage_path('app/public/' . $book->book_cover))) {
+                unlink(storage_path('app/public/' . $book->book_cover));
+            }
+            $imagePath = $request->file('book_cover')->store('uploads', 'public');
+            $info['book_cover'] = $imagePath;
+        }
         $book->update($info);
         return redirect(route('books.view'))->with('success', "Updated successfully!");
     }
     public function destroy(Book $book)
     {
         $found = Book::find($book);
-        if(!$found) {
+        if (!$found) {
             return redirect(route('books.view'))->with('error', 'Entry cannot be deleted for a reason I know, but wont tell you.');
         }
         if ($found && file_exists(storage_path('app/public/' . $book->book_cover))) {
