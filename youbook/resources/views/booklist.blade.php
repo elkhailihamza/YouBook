@@ -19,7 +19,7 @@
     <div class="card" style="width: 325px;">
         <a href="{{ route('book.view', ['book' => $book]) }}" class="text-decoration-none text-dark">
             <img src="{{ $book->book_cover ? asset('storage/' . $book->book_cover) : url('img/thumbnail.png') }}"
-                class="card-img-top cropped-img" style="height: 200px;" alt="Book Cover">
+                class="card-img-top cropped-img" alt="Book Cover">
             <div class="card-body">
                 <h5 class="card-title">{{ $book->title }}</h5>
                 <p class="card-text text-truncate" style="max-width: 300px;">{{ $book->description }}</p>

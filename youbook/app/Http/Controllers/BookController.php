@@ -48,7 +48,8 @@ class BookController extends Controller
     {
         $info = $request->validate([
             'title' => 'required',
-            'description' => 'required'
+            'description' => 'required',
+            'book_cover' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
         $book->update($info);
@@ -56,6 +57,13 @@ class BookController extends Controller
     }
     public function destroy(Book $book)
     {
+        $found = Book::find($book);
+        if(!$found) {
+            return redirect(route('books.view'))->with('error', 'Entry cannot be deleted for a reason I know, but wont tell you.');
+        }
+        if ($found && file_exists(storage_path('app/public/' . $book->book_cover))) {
+            unlink(storage_path('app/public/' . $book->book_cover));
+        }
         $book->delete();
         return redirect(route('books.view'))->with('success', "Deleted '$book->title' with success!");
     }
