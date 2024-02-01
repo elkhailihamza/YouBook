@@ -4,3 +4,8 @@
 .card:hover {
     transform: scale(1.05);
 }
+.slick_btn {
+    padding: 4px;
+    display: flex;
+    justify-content: center;
+}
