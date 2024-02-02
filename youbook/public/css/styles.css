@@ -1,0 +1,16 @@
+.card_highlight {
+    transition: transform 0.3s;
+}
+
+.card_highlight:hover {
+    transform: scale(1.05);
+}
+
+.cropped-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+    margin: auto;
+}
