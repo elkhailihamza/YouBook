@@ -34,13 +34,13 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-outline">
-                                <input type="password" required class="form-control" name="pass" id="pass"
+                                <input type="password" required class="form-control" name="password" id="pass"
                                     placeholder="Password">
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-outline">
-                                <input type="password" required class="form-control" name="cpass" id="cpass"
+                                <input type="password" required class="form-control" name="password_confirmation" id="cpass"
                                     placeholder="Confirm" />
                             </div>
                         </div>

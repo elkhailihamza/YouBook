@@ -17,23 +17,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// view home page
-Route::get('/', [BookController::class, 'index'])->name('book.index');
+Route::controller(BookController::class)->group(function () {
+    //view main page
+    Route::get('/', 'index')->name('book.index');
 
-// view a book
-Route::get('/books', [BookController::class, 'bookList'])->name('book.viewList');
-Route::get('/books/{book}/view', [BookController::class, 'bookDetails'])->name('book.viewBook');
+    // view a book
+    Route::get('/books', 'bookList')->name('book.viewList');
+    Route::get('/books/{book}/view', 'bookDetails')->name('book.viewBook');
 
-// create a book
-Route::get('/books/create', [BookController::class, 'create'])->name('book.create');
-Route::post('/books', [BookController::class, 'store'])->name('book.store');
+    // create a book
+    Route::get('/books/create', 'create')->name('book.create');
+    Route::post('/books', 'store')->name('book.store');
 
-// update a book
-Route::get('/books/{book}/edit', [BookController::class, 'edit'])->name('book.edit');
-Route::put('/books/{book}/update', [BookController::class, 'update'])->name('book.update');
+    // update a book
+    Route::get('/books/{book}/edit', 'edit')->name('book.edit');
+    Route::put('/books/{book}/update', 'update')->name('book.update');
 
-// delete a book
-Route::delete('/books/{book}/destroy', [BookController::class, 'destroy'])->name('book.destroy');
+    // delete a book
+    Route::delete('/books/{book}/destroy', 'destroy')->name('book.destroy');
+});
 
 // reserve a book
 Route::get('/book/reservation', [ReservationController::class, 'index'])->name('book.reservation');
