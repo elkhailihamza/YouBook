@@ -8,7 +8,7 @@
             <div class="text-center">
                 <h3>Login</h3>
             </div>
-            <form action="" class="form-group mt-4">
+            <form method="post" action="{{ route('auth.login.verify') }}" class="form-group mt-4">
                 @csrf
                 @method('post')
                 <div class="row justify-content-center">
@@ -17,7 +17,7 @@
                             <input type="email" class="form-control" name="email" id="email" placeholder="Email" />
                         </div>
                         <div class="form-outline mb-5">
-                            <input type="password" class="form-control" name="pass" id="pass" placeholder="Password">
+                            <input type="password" class="form-control" name="password" id="pass" placeholder="Password">
                         </div>
                     </div>
                 </div>

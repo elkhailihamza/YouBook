@@ -44,6 +44,7 @@ Route::get('/book/reservation', [ReservationController::class, 'index'])->name('
 // Auth
 Route::controller(AuthController::class)->group(function () {
     Route::get('/login', 'index')->name('auth.login');
+    Route::post('/login/verify', 'authenticate')->name('auth.login.verify');
     Route::get('/register', 'register')->name('auth.register');
     Route::post('/register/store', 'store')->name('auth.register.store');
     Route::post('/logout', 'logout')->name('auth.logout');

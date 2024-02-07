@@ -30,7 +30,7 @@ class BookController extends Controller
         }
 
         $newBook = Book::create($info);
-        return redirect(route('books.view'))->with('success', "Book '$newBook->title' was created successfully!");
+        return redirect(route('books.view'))->withSuccess("Book '$newBook->title' was created successfully!");
     }
     public function bookList()
     {
@@ -61,7 +61,7 @@ class BookController extends Controller
             $info['book_cover'] = $imagePath;
         }
         $book->update($info);
-        return redirect(route('book.viewList'))->with('success', "Updated successfully!");
+        return redirect(route('book.viewList'))->withSuccess("Updated successfully!");
     }
     public function destroy(Book $book)
     {
@@ -73,6 +73,6 @@ class BookController extends Controller
             unlink(storage_path('app/public/' . $book->book_cover));
         }
         $book->delete();
-        return redirect(route('book.viewList'))->with('success', "Deleted '$book->title' with success!");
+        return redirect(route('book.viewList'))->withSuccess("Deleted '$book->title' with success!");
     }
 }

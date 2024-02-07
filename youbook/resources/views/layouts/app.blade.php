@@ -30,9 +30,11 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('book.viewList') }}">View</a>
                         </li>
+                        @auth
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('book.create') }}">Create</a>
                         </li>
+                        @endauth
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('book.reservation') }}">Reservations</a>
                         </li>
