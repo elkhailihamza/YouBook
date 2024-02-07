@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 Route::controller(BookController::class)->group(function () {
     //view main page
     Route::get('/', 'index')->name('book.index');
+    Route::get('/home', 'index')->name('book.index');
 
     // view a book
     Route::get('/books', 'bookList')->name('book.viewList');
@@ -40,6 +41,10 @@ Route::controller(BookController::class)->group(function () {
 // reserve a book
 Route::get('/book/reservation', [ReservationController::class, 'index'])->name('book.reservation');
 
-// auth
-Route::get('/login', [AuthController::class, 'index'])->name('auth.login');
-Route::get('/register', [AuthController::class, 'register'])->name('auth.register');
+// Auth
+Route::controller(AuthController::class)->group(function () {
+    Route::get('/login', 'index')->name('auth.login');
+    Route::get('/register', 'register')->name('auth.register');
+    Route::post('/register/store', 'store')->name('auth.register.store');
+    Route::post('/logout', 'logout')->name('auth.logout');
+});

@@ -1,4 +1,4 @@
-@extends('layouts.reg')
+@extends('auth.layouts.reg')
 
 @section('reg_content')
 

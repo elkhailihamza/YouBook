@@ -58,7 +58,7 @@
 </div>
 @else
 <div class="container-fluid d-flex justify-content-center align-items-center bg-light user-select-none" style="height: 535px;">
-    <div class="row">
+    <div class="row text-center">
         <h2 class="text-muted fw-bold">
             No Books Can Be Found At The Moment!
         </h2>
