@@ -14,10 +14,11 @@
 </div>
 @endif
 
+@if(isset($books) && $books->isNotEmpty())
 <div class="container mt-5 d-flex justify-content-center flex-wrap gap-4">
     @foreach($books as $i => $book)
     <div class="card card_highlight" style="width: 325px;">
-        <a href="{{ route('book.view', ['book' => $book]) }}" class="text-decoration-none text-dark">
+        <a href="{{ route('book.viewBook', ['book' => $book]) }}" class="text-decoration-none text-dark">
             <img src="{{ $book->book_cover ? asset('storage/' . $book->book_cover) : url('img/thumbnail.png') }}"
                 class="card-img-top cropped-img" alt="Book Cover">
             <div class="card-body">
@@ -55,5 +56,14 @@
     </div>
     @endforeach
 </div>
+@else
+<div class="container-fluid d-flex justify-content-center align-items-center bg-light user-select-none" style="height: 535px;">
+    <div class="row">
+        <h2 class="text-muted fw-bold">
+            No Books Can Be Found At The Moment!
+        </h2>
+    </div>
+</div>
+@endif
 
 @stop

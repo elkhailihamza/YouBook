@@ -10,11 +10,11 @@ class BookController extends Controller
     //
     public function index()
     {
-        return view('index');
+        return view('book.index');
     }
     public function Create()
     {
-        return view('create');
+        return view('book.create');
     }
     public function store(Request $request)
     {
@@ -32,18 +32,18 @@ class BookController extends Controller
         $newBook = Book::create($info);
         return redirect(route('books.view'))->with('success', "Book '$newBook->title' was created successfully!");
     }
-    public function viewBooks()
+    public function bookList()
     {
         $books = Book::all();
-        return view('booklist', ['books' => $books]);
+        return view('book.booklist', compact('books'));
     }
-    public function viewBook(Book $book)
+    public function bookDetails(Book $book)
     {
-        return view('bookdetails', ['book' => $book]);
+        return view('book.bookdetails', ['book' => $book]);
     }
     public function edit(Book $book)
     {
-        return view('edit', ['book' => $book]);
+        return view('book.edit', ['book' => $book]);
     }
     public function update(Book $book, Request $request)
     {
@@ -61,18 +61,18 @@ class BookController extends Controller
             $info['book_cover'] = $imagePath;
         }
         $book->update($info);
-        return redirect(route('books.view'))->with('success', "Updated successfully!");
+        return redirect(route('book.viewList'))->with('success', "Updated successfully!");
     }
     public function destroy(Book $book)
     {
         $found = Book::find($book);
         if (!$found) {
-            return redirect(route('books.view'))->with('error', 'Entry cannot be deleted for a reason I know, but wont tell you.');
+            return redirect(route('book.viewList'))->with('error', 'Entry cannot be deleted for a reason I know, but wont tell you.');
         }
         if ($found && file_exists(storage_path('app/public/' . $book->book_cover))) {
             unlink(storage_path('app/public/' . $book->book_cover));
         }
         $book->delete();
-        return redirect(route('books.view'))->with('success', "Deleted '$book->title' with success!");
+        return redirect(route('book.viewList'))->with('success', "Deleted '$book->title' with success!");
     }
 }
