@@ -2,18 +2,6 @@
 
 @section('content')
 
-@if (session()->has('success'))
-<div class="alert alert-success">
-    {{ session('success') }}
-</div>
-@endif
-
-@if (session()->has('error'))
-<div class="alert alert-danger">
-    {{ session('error') }}
-</div>
-@endif
-
 @if(isset($books) && $books->isNotEmpty())
 <div class="container mt-5 d-flex justify-content-center flex-wrap gap-4">
     @foreach($books as $i => $book)
@@ -26,7 +14,9 @@
                 <p class="card-text text-truncate" style="max-width: 300px;">{{ $book->description }}</p>
             </div>
         </a>
+        @auth
         <div class="p-2 d-flex gap-1">
+            @if(Auth::user()->role_id == '2')
             <form method="post" action="{{ route('book.destroy', ['book' => $book]) }}">
                 @csrf
                 @method('delete')
@@ -45,6 +35,7 @@
                     <path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path>
                     <polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon>
                 </svg></a>
+            @endif
             <a href="" class="btn btn-warning d-flex justify-content-center p-1">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                     stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -53,11 +44,13 @@
                 </svg>
             </a>
         </div>
+        @endauth
     </div>
     @endforeach
 </div>
 @else
-<div class="container-fluid d-flex justify-content-center align-items-center bg-light user-select-none" style="height: 535px;">
+<div class="container-fluid d-flex justify-content-center align-items-center bg-light user-select-none"
+    style="height: 535px;">
     <div class="row text-center">
         <h2 class="text-muted fw-bold">
             No Books Can Be Found At The Moment!

@@ -30,7 +30,7 @@ class BookController extends Controller
         }
 
         $newBook = Book::create($info);
-        return redirect(route('books.view'))->withSuccess("Book '$newBook->title' was created successfully!");
+        return redirect(route('book.viewList'))->withSuccess("Book '$newBook->title' was created successfully!");
     }
     public function bookList()
     {
@@ -67,7 +67,7 @@ class BookController extends Controller
     {
         $found = Book::find($book);
         if (!$found) {
-            return redirect(route('book.viewList'))->with('error', 'Entry cannot be deleted for a reason I know, but wont tell you.');
+            return redirect(route('book.viewList'))->withErrors('Entry cannot be deleted for a reason I know, but wont tell you.');
         }
         if ($found && file_exists(storage_path('app/public/' . $book->book_cover))) {
             unlink(storage_path('app/public/' . $book->book_cover));
