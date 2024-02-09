@@ -9,6 +9,7 @@
         <a href="{{ route('book.viewBook', ['book' => $book]) }}" class="text-decoration-none text-dark">
             <img src="{{ $book->book_cover ? asset('storage/' . $book->book_cover) : url('img/thumbnail.png') }}"
                 class="card-img-top cropped-img" alt="Book Cover">
+
             <div class="card-body">
                 <h5 class="card-title">{{ $book->title }}</h5>
                 <p class="card-text text-truncate" style="max-width: 300px;">{{ $book->description }}</p>
@@ -36,13 +37,38 @@
                     <polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon>
                 </svg></a>
             @endif
-            <a href="" class="btn btn-warning d-flex justify-content-center p-1">
+            <button type="button" class="btn btn-warning d-flex justify-content-center p-1" data-bs-toggle="modal"
+                data-bs-target="#Modal{{$book->id}}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                     stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                     <polyline points="9 11 12 14 22 4"></polyline>
                     <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
                 </svg>
-            </a>
+            </button>
+
+            <div class="modal fade" id="Modal{{$book->id}}" tabindex="-1" aria-labelledby="Modal{{$book->id}}"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmation</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Are you sure you want to reserve this book?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <form method="post"
+                                action="{{ route('book.reservation.store', ['user_id' => Auth::user()->id, 'book_id' => $book->id]) }}">
+                                @csrf
+                                @method('post')
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         @endauth
     </div>

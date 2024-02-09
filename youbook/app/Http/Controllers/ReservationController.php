@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reservation;
-use App\Http\Requests\StoreReservationRequest;
-use App\Http\Requests\UpdateReservationRequest;
-use App\Models\Book;
+use Illuminate\Http\Request;
 
 class ReservationController extends Controller
 {
@@ -14,55 +12,22 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        $reservation = Book::with('users')->paginate(5);
-        return view('bookreservation', [$reservation]);
+        $reservations = Reservation::with('book', 'user')->paginate(5);
+        return view('book.bookreserve', ['reservation' => $reservations]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(Request $request, $user_id, $book_id)
     {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreReservationRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Reservation $reservation)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Reservation $reservation)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateReservationRequest $request, Reservation $reservation)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Reservation $reservation)
-    {
-        //
+        $newReservation = Reservation::create([
+            'user_id' => $user_id,
+            'book_id' => $book_id,
+            'created_at' => now(),
+            'updated_at' => now(),
+            'ends' => now(),
+            'status' => 'ended',
+        ]);
+        
+        return redirect(route('book.reservation'))->withSuccess('Successfully made a reservation');
     }
 }

@@ -1,10 +1,10 @@
-.card_highlight {
+/* .card_highlight {
     transition: transform 0.3s;
 }
 
 .card_highlight:hover {
     transform: scale(1.05);
-}
+} */
 
 .cropped-img {
     width: 100%;

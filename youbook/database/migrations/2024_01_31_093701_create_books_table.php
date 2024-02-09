@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description');
-            $table->text('book_cover')->nullable;
+            $table->text('book_cover')->nullable();
         });
     }
 

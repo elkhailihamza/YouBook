@@ -10,13 +10,14 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('reservations', function (Blueprint $table) {
+        Schema::create('reservation', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->unsignedBigInteger('id_book');
-            $table->unsignedBigInteger('id_user');
+            $table->id();
+            $table->unsignedBigInteger('book_id');
+            $table->unsignedBigInteger('user_id');
 
-            $table->foreign('id_book')->references('id')->on('books')->constrained();
-            $table->foreign('id_user')->references('id')->on('users')->constrained();
+            $table->foreign('book_id')->references('id')->on('books')->constrained();
+            $table->foreign('user_id')->references('id')->on('users')->constrained();
 
             $table->timestamps();
             $table->date('ends');
@@ -30,6 +31,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('reservations');
+        Schema::dropIfExists('reservation');
     }
 };

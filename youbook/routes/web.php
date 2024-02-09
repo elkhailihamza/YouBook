@@ -35,11 +35,12 @@ Route::controller(BookController::class)->group(function () {
     Route::get('/books/{book}/view', 'bookDetails')->name('book.viewBook');
 });
 
-Route::middleware('auth')->group(function() {
+Route::middleware('auth')->group(function () {
     // logout
     Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
     // reserve a book
     Route::get('/book/reservation', [ReservationController::class, 'index'])->name('book.reservation');
+    Route::post('/book/reservation/store/{user_id}/{book_id}', [ReservationController::class, 'store'])->name('book.reservation.store');
 
     Route::middleware(['admin'])->group(function () {
         Route::controller(BookController::class)->group(function () {
